@@ -1,0 +1,585 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Judo Graduierungs-Bingo</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #e0f2fe 0%, #bfdbfe 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .header h1 {
+            color: #1e3a8a;
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+
+        .header p {
+            color: #1e40af;
+            font-size: 1.1em;
+        }
+
+        .controls {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            padding: 30px;
+            margin-bottom: 30px;
+        }
+
+        .controls-inner {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .dice-container {
+            display: flex;
+            gap: 20px;
+        }
+
+        .dice {
+            width: 70px;
+            height: 70px;
+            background: #2563eb;
+            color: white;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2em;
+            font-weight: bold;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.2);
+        }
+
+        .dice.rolling {
+            animation: bounce 0.5s ease infinite;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-15px); }
+        }
+
+        button {
+            padding: 15px 30px;
+            font-size: 1em;
+            font-weight: bold;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            color: white;
+        }
+
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 8px rgba(0,0,0,0.15);
+        }
+
+        button:disabled {
+            background: #9ca3af !important;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .btn-roll {
+            background: #2563eb;
+        }
+
+        .btn-roll:hover {
+            background: #1e40af;
+        }
+
+        .btn-new {
+            background: #16a34a;
+        }
+
+        .btn-new:hover {
+            background: #15803d;
+        }
+
+        .btn-download {
+            background: #9333ea;
+        }
+
+        .btn-download:hover {
+            background: #7e22ce;
+        }
+
+        .dice-info {
+            margin-top: 20px;
+            text-align: center;
+            color: #4b5563;
+            font-size: 0.9em;
+            width: 100%;
+        }
+
+        .bingo-alert {
+            background: #22c55e;
+            color: white;
+            text-align: center;
+            padding: 20px;
+            border-radius: 12px;
+            margin-bottom: 30px;
+            font-size: 1.8em;
+            font-weight: bold;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            animation: pulse 1s ease infinite;
+            display: none;
+        }
+
+        .bingo-alert.show {
+            display: block;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.8; }
+        }
+
+        .grid-wrapper {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            padding: 30px;
+            overflow-x: auto;
+        }
+
+        .grid-container {
+            display: inline-block;
+            min-width: 100%;
+        }
+
+        .grid-header {
+            display: flex;
+            margin-bottom: 10px;
+        }
+
+        .grid-row-number {
+            width: 50px;
+        }
+
+        .grid-col-number {
+            width: 160px;
+            text-align: center;
+            font-weight: bold;
+            color: #1e3a8a;
+            font-size: 1.2em;
+        }
+
+        .grid-row {
+            display: flex;
+        }
+
+        .row-label {
+            width: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            color: #1e3a8a;
+            font-size: 1.2em;
+        }
+
+        .grid-cell {
+            width: 160px;
+            height: 160px;
+            border: 2px solid #93c5fd;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s;
+            padding: 10px;
+            background: white;
+        }
+
+        .grid-cell:hover {
+            background: #eff6ff;
+            transform: scale(1.02);
+        }
+
+        .grid-cell.marked {
+            background: #bbf7d0;
+            border-color: #22c55e;
+            border-width: 3px;
+        }
+
+        .cell-image {
+            width: 100px;
+            height: 100px;
+            background: #eff6ff;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3em;
+            margin-bottom: 8px;
+        }
+
+        .cell-name {
+            font-size: 0.75em;
+            font-weight: bold;
+            color: #1e3a8a;
+            text-align: center;
+            line-height: 1.3;
+        }
+
+        .instructions {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            padding: 30px;
+            margin-top: 30px;
+        }
+
+        .instructions h2 {
+            color: #1e3a8a;
+            margin-bottom: 20px;
+            font-size: 1.5em;
+        }
+
+        .instructions ul {
+            list-style: none;
+        }
+
+        .instructions li {
+            color: #374151;
+            margin-bottom: 10px;
+            padding-left: 10px;
+            line-height: 1.6;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🥋 Judo Graduierungs-Bingo</h1>
+            <p>Standtechniken - Wurf-Techniken</p>
+        </div>
+
+        <div class="controls">
+            <div class="controls-inner">
+                <div class="dice-container">
+                    <div class="dice" id="dice1">1</div>
+                    <div class="dice" id="dice2">1</div>
+                </div>
+                <button class="btn-roll" onclick="rollDice()">🎲 Würfeln</button>
+                <button class="btn-new" onclick="generateGrid()">🔄 Neues Raster</button>
+                <button class="btn-download" onclick="downloadImage()">⬇️ Als Bild</button>
+            </div>
+            <div class="dice-info">
+                <p>Würfel 1: Spalte/Zeile | Würfel 2: Zeile/Spalte | 🎯 Ziffer 6 = Joker (freie Wahl)</p>
+            </div>
+        </div>
+
+        <div class="bingo-alert" id="bingoAlert">
+            🎉 BINGO! 🎉
+        </div>
+
+        <div class="grid-wrapper">
+            <div class="grid-container">
+                <div class="grid-header">
+                    <div class="grid-row-number"></div>
+                    <div class="grid-col-number">1</div>
+                    <div class="grid-col-number">2</div>
+                    <div class="grid-col-number">3</div>
+                    <div class="grid-col-number">4</div>
+                    <div class="grid-col-number">5</div>
+                </div>
+                <div id="grid"></div>
+            </div>
+        </div>
+
+        <div class="instructions">
+            <h2>📋 Spielanleitung</h2>
+            <ul>
+                <li>✅ Würfle mit beiden Würfeln</li>
+                <li>✅ Würfel 1 gibt Spalte oder Zeile an, Würfel 2 die andere Dimension</li>
+                <li>✅ Führe die gewürfelte Technik aus (beide Partner: Tori und Uke)</li>
+                <li>✅ Klicke auf das Feld, um es als erledigt zu markieren</li>
+                <li>✅ Ziffer 6 = Joker - du darfst frei wählen!</li>
+                <li>✅ Ziel: Erreiche eine vollständige 5er-Reihe (horizontal, vertikal oder diagonal)</li>
+                <li>✅ Bei BINGO laut "BINGO!" rufen! 🎉</li>
+            </ul>
+        </div>
+    </div>
+
+    <script>
+        const techniques = [
+            { name: 'De-Ashi-Barai', image: 'images/De-Ashi-Barai.png' },
+            { name: 'Morote-Seoi-Nage', image: 'images/Morote-Seoi-Nage.png' },
+            { name: 'O-Goshi', image: 'images/O-Goshi.png' },
+            { name: 'Uki-Goshi', image: 'images/Uki-Goshi.png' },
+            { name: 'Ippon-Seoi-Nage', image: 'images/Ippon-Seoi-Nage.png' },
+            { name: 'Ko-Soto-Gake', image: 'images/Ko-Soto-Gake.png' },
+            { name: 'O-Soto-Gari', image: 'images/O-Soto-Gari.png' },
+            { name: 'Tai-Otoshi', image: 'images/Tai-Otoshi.png' },
+            { name: 'Ko-Uchi-Gari', image: 'images/Ko-Uchi-Gari.png' },
+            { name: 'Sasae-Tsuri-Komi-Ashi', image: 'images/Sasae-Tsuri-Komi-Ashi.png' },
+            { name: 'Sode-Tsuri-Komi-Goshi', image: 'images/Sode-Tsuri-Komi-Goshi.png' },
+            { name: 'Tsuri-Komi-Goshi', image: 'images/Tsuri-Komi-Goshi.png' },
+            { name: 'Harai-Goshi', image: 'images/Harai-Goshi.png' },
+            { name: 'Koshi-Guruma', image: 'images/Koshi-Guruma.png' },
+            { name: 'O-Uchi-Gari', image: 'images/O-Uchi-Gari.png' },
+            { name: 'Uchi-Mata', image: 'images/Uchi-Mata.png' }
+        ];
+
+        let grid = [];
+        let marked = [];
+
+        function generateGrid() {
+            const shuffled = [...techniques].sort(() => Math.random() - 0.5);
+            grid = [];
+            for (let i = 0; i < 5; i++) {
+                const row = [];
+                for (let j = 0; j < 5; j++) {
+                    row.push(shuffled[(i * 5 + j) % techniques.length]);
+                }
+                grid.push(row);
+            }
+            marked = [];
+            document.getElementById('bingoAlert').classList.remove('show');
+            renderGrid();
+        }
+
+        function renderGrid() {
+            const gridEl = document.getElementById('grid');
+            gridEl.innerHTML = '';
+            
+            for (let i = 0; i < 5; i++) {
+                const rowDiv = document.createElement('div');
+                rowDiv.className = 'grid-row';
+                
+                const label = document.createElement('div');
+                label.className = 'row-label';
+                label.textContent = i + 1;
+                rowDiv.appendChild(label);
+                
+                for (let j = 0; j < 5; j++) {
+                    const cell = document.createElement('div');
+                    cell.className = 'grid-cell';
+                    const key = `${i}-${j}`;
+                    if (marked.includes(key)) {
+                        cell.classList.add('marked');
+                    }
+                    
+                    const imageContainer = document.createElement('div');
+                    imageContainer.className = 'cell-image';
+                    
+                    const img = document.createElement('img');
+                    img.src = grid[i][j].image;
+                    img.alt = grid[i][j].name;
+                    img.style.width = '100%';
+                    img.style.height = '100%';
+                    img.style.objectFit = 'contain';
+                    
+                    imageContainer.appendChild(img);
+                    
+                    const name = document.createElement('div');
+                    name.className = 'cell-name';
+                    name.textContent = grid[i][j].name;
+                    
+                    cell.appendChild(imageContainer);
+                    cell.appendChild(name);
+                    cell.onclick = () => toggleCell(i, j);
+                    
+                    rowDiv.appendChild(cell);
+                }
+                
+                gridEl.appendChild(rowDiv);
+            }
+        }
+
+        function toggleCell(row, col) {
+            const key = `${row}-${col}`;
+            const index = marked.indexOf(key);
+            if (index > -1) {
+                marked.splice(index, 1);
+            } else {
+                marked.push(key);
+                checkBingo();
+            }
+            renderGrid();
+        }
+
+        function checkBingo() {
+            for (let i = 0; i < 5; i++) {
+                if ([0, 1, 2, 3, 4].every(j => marked.includes(`${i}-${j}`))) {
+                    showBingo();
+                    return;
+                }
+            }
+            
+            for (let j = 0; j < 5; j++) {
+                if ([0, 1, 2, 3, 4].every(i => marked.includes(`${i}-${j}`))) {
+                    showBingo();
+                    return;
+                }
+            }
+            
+            if ([0, 1, 2, 3, 4].every(i => marked.includes(`${i}-${i}`))) {
+                showBingo();
+                return;
+            }
+            if ([0, 1, 2, 3, 4].every(i => marked.includes(`${i}-${4-i}`))) {
+                showBingo();
+                return;
+            }
+        }
+
+        function showBingo() {
+            document.getElementById('bingoAlert').classList.add('show');
+        }
+
+        function rollDice() {
+            const dice1El = document.getElementById('dice1');
+            const dice2El = document.getElementById('dice2');
+            
+            dice1El.classList.add('rolling');
+            dice2El.classList.add('rolling');
+            
+            setTimeout(() => {
+                const newDice1 = Math.floor(Math.random() * 6) + 1;
+                const newDice2 = Math.floor(Math.random() * 6) + 1;
+                
+                dice1El.textContent = newDice1;
+                dice2El.textContent = newDice2;
+                
+                dice1El.classList.remove('rolling');
+                dice2El.classList.remove('rolling');
+            }, 500);
+        }
+
+        async function downloadImage() {
+            const canvas = document.createElement('canvas');
+            canvas.width = 800;
+            canvas.height = 900;
+            const ctx = canvas.getContext('2d');
+            
+            // White background
+            ctx.fillStyle = 'white';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            
+            // Title
+            ctx.fillStyle = '#1e40af';
+            ctx.font = 'bold 32px Arial';
+            ctx.textAlign = 'center';
+            ctx.fillText('🥋 Judo Graduierungs-Bingo', 400, 50);
+            
+            // Subtitle
+            ctx.font = '16px Arial';
+            ctx.fillText('Standtechniken - Wurf-Techniken', 400, 75);
+            
+            const cellSize = 140;
+            const startX = 50;
+            const startY = 100;
+            
+            // Column numbers
+            ctx.fillStyle = '#1e40af';
+            ctx.font = 'bold 20px Arial';
+            for (let j = 0; j < 5; j++) {
+                ctx.fillText(`${j + 1}`, startX + j * cellSize + cellSize/2, startY - 20);
+            }
+            
+            // Function to load image
+            const loadImage = (src) => {
+                return new Promise((resolve, reject) => {
+                    const img = new Image();
+                    img.crossOrigin = 'anonymous';
+                    img.onload = () => resolve(img);
+                    img.onerror = () => reject(new Error('Image load failed'));
+                    img.src = src;
+                });
+            };
+            
+            // Row numbers and cells with images
+            for (let i = 0; i < 5; i++) {
+                // Row number
+                ctx.fillStyle = '#1e40af';
+                ctx.font = 'bold 20px Arial';
+                ctx.fillText(`${i + 1}`, startX - 25, startY + i * cellSize + cellSize/2 + 7);
+                
+                for (let j = 0; j < 5; j++) {
+                    const x = startX + j * cellSize;
+                    const y = startY + i * cellSize;
+                    
+                    // Cell border
+                    ctx.strokeStyle = '#1e40af';
+                    ctx.lineWidth = 2;
+                    ctx.strokeRect(x, y, cellSize, cellSize);
+                    
+                    // Try to load and draw image
+                    try {
+                        const img = await loadImage(grid[i][j].image);
+                        const imgSize = 90;
+                        const imgX = x + (cellSize - imgSize) / 2;
+                        const imgY = y + 10;
+                        ctx.drawImage(img, imgX, imgY, imgSize, imgSize);
+                    } catch (error) {
+                        // If image fails, draw placeholder
+                        ctx.fillStyle = '#eff6ff';
+                        ctx.fillRect(x + 20, y + 10, 100, 90);
+                        ctx.fillStyle = '#1e40af';
+                        ctx.font = '40px Arial';
+                        ctx.textAlign = 'center';
+                        ctx.fillText('🥋', x + cellSize/2, y + 65);
+                    }
+                    
+                    // Technique name
+                    ctx.fillStyle = '#1e3a8a';
+                    ctx.font = 'bold 11px Arial';
+                    ctx.textAlign = 'center';
+                    const technique = grid[i][j].name;
+                    const words = technique.split('-');
+                    const textStartY = y + 110;
+                    words.forEach((word, idx) => {
+                        ctx.fillText(word, x + cellSize/2, textStartY + (idx * 13));
+                    });
+                }
+            }
+            
+            // Instructions at bottom
+            ctx.font = '14px Arial';
+            ctx.fillStyle = '#374151';
+            ctx.textAlign = 'left';
+            ctx.fillText('• Würfle mit 2 Würfeln: Würfel 1 = Spalte/Zeile, Würfel 2 = Zeile/Spalte', 50, 820);
+            ctx.fillText('• Ziffer 6 = Joker (freie Wahl)', 50, 845);
+            ctx.fillText('• Ziel: Erreiche eine vollständige Reihe (horizontal, vertikal oder diagonal)', 50, 870);
+            
+            // Download
+            const link = document.createElement('a');
+            link.download = 'judo-bingo.png';
+            link.href = canvas.toDataURL('image/png');
+            link.click();
+        }
+
+        generateGrid();
+    </script>
+</body>
+</html>
