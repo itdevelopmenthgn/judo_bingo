@@ -26,6 +26,25 @@
         .header {
             text-align: center;
             margin-bottom: 30px;
+            position: relative;
+        }
+
+        .header-content {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 40px;
+            margin-bottom: 10px;
+        }
+
+        .header-logo {
+            height: 80px;
+            width: auto;
+            object-fit: contain;
+        }
+
+        .header-title {
+            flex: 0 0 auto;
         }
 
         .header h1 {
@@ -37,6 +56,58 @@
         .header p {
             color: #1e40af;
             font-size: 1.1em;
+        }
+
+        .program-selection {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            padding: 30px;
+            margin-bottom: 30px;
+        }
+
+        .program-selection h2 {
+            color: #1e3a8a;
+            font-size: 1.5em;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .checkbox-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            justify-content: center;
+        }
+
+        .checkbox-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 12px 20px;
+            background: #eff6ff;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s;
+            border: 2px solid transparent;
+        }
+
+        .checkbox-item:hover {
+            background: #dbeafe;
+            border-color: #2563eb;
+        }
+
+        .checkbox-item input[type="checkbox"] {
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+        }
+
+        .checkbox-item label {
+            font-size: 1em;
+            font-weight: bold;
+            color: #1e3a8a;
+            cursor: pointer;
         }
 
         .controls {
@@ -279,8 +350,40 @@
 <body>
     <div class="container">
         <div class="header">
-            <h1>🥋 Judo Graduierungs-Bingo</h1>
-            <p>Standtechniken - Wurf-Techniken</p>
+            <div class="header-content">
+                <img src="Bilder/Logos/logo_djb.png" alt="DJB Logo" class="header-logo">
+                <div class="header-title">
+                    <h1>🥋 Judo Graduierungs-Bingo</h1>
+                </div>
+                <img src="Bilder/Logos/budo_spiele.png" alt="Budo Spiele Logo" class="header-logo">
+            </div>
+            <p>Wähle deine Programme aus!</p>
+        </div>
+
+        <div class="program-selection">
+            <h2>📚 Programmauswahl</h2>
+            <div class="checkbox-group">
+                <div class="checkbox-item">
+                    <input type="checkbox" id="grundStand" checked onchange="updateSelection()">
+                    <label for="grundStand">Grundprogramm Stand</label>
+                </div>
+                <div class="checkbox-item">
+                    <input type="checkbox" id="grundBoden" onchange="updateSelection()">
+                    <label for="grundBoden">Grundprogramm Boden</label>
+                </div>
+                <div class="checkbox-item">
+                    <input type="checkbox" id="erwStand" onchange="updateSelection()">
+                    <label for="erwStand">Erweiterungsprogramm Stand</label>
+                </div>
+                <div class="checkbox-item">
+                    <input type="checkbox" id="erwBoden" onchange="updateSelection()">
+                    <label for="erwBoden">Erweiterungsprogramm Boden</label>
+                </div>
+                <div class="checkbox-item">
+                    <input type="checkbox" id="weissGelb" onchange="updateSelection()">
+                    <label for="weissGelb">Weiß Gelb</label>
+                </div>
+            </div>
         </div>
 
         <div class="controls">
@@ -319,47 +422,139 @@
         <div class="instructions">
             <h2>📋 Spielanleitung</h2>
             <ul>
+                <li>✅ Wähle oben die Programme aus, die du trainieren möchtest</li>
                 <li>✅ Würfle mit beiden Würfeln</li>
                 <li>✅ Würfel 1 gibt Spalte oder Zeile an, Würfel 2 die andere Dimension</li>
                 <li>✅ Führe die gewürfelte Technik aus (beide Partner: Tori und Uke)</li>
                 <li>✅ Klicke auf das Feld, um es als erledigt zu markieren</li>
                 <li>✅ Ziffer 6 = Joker - du darfst frei wählen!</li>
                 <li>✅ Ziel: Erreiche eine vollständige 5er-Reihe (horizontal, vertikal oder diagonal)</li>
-                <li>✅ Bei BINGO laut "BINGO!" rufen! 🎉</li>
+                <li>✅ Bei BINGO laut "BUDO BINGO!" rufen! 🎉</li>
             </ul>
         </div>
     </div>
 
     <script>
-        const techniques = [
-            { name: 'De-Ashi-Barai', image: 'images/De-Ashi-Barai.png' },
-            { name: 'Morote-Seoi-Nage', image: 'images/Morote-Seoi-Nage.png' },
-            { name: 'O-Goshi', image: 'images/O-Goshi.png' },
-            { name: 'Uki-Goshi', image: 'images/Uki-Goshi.png' },
-            { name: 'Ippon-Seoi-Nage', image: 'images/Ippon-Seoi-Nage.png' },
-            { name: 'Ko-Soto-Gake', image: 'images/Ko-Soto-Gake.png' },
-            { name: 'O-Soto-Gari', image: 'images/O-Soto-Gari.png' },
-            { name: 'Tai-Otoshi', image: 'images/Tai-Otoshi.png' },
-            { name: 'Ko-Uchi-Gari', image: 'images/Ko-Uchi-Gari.png' },
-            { name: 'Sasae-Tsuri-Komi-Ashi', image: 'images/Sasae-Tsuri-Komi-Ashi.png' },
-            { name: 'Sode-Tsuri-Komi-Goshi', image: 'images/Sode-Tsuri-Komi-Goshi.png' },
-            { name: 'Tsuri-Komi-Goshi', image: 'images/Tsuri-Komi-Goshi.png' },
-            { name: 'Harai-Goshi', image: 'images/Harai-Goshi.png' },
-            { name: 'Koshi-Guruma', image: 'images/Koshi-Guruma.png' },
-            { name: 'O-Uchi-Gari', image: 'images/O-Uchi-Gari.png' },
-            { name: 'Uchi-Mata', image: 'images/Uchi-Mata.png' }
+        const techniquesGrundStand = [
+            { name: 'De-Ashi-Barai', image: 'Bilder/01 Grundprogramm Stand/7. Kyu/De-Ashi-Barai.png' },
+            { name: 'Morote-Seoi-Nage', image: 'Bilder/01 Grundprogramm Stand/7. Kyu/morote-seoi-nage.png' },
+            { name: 'O-Goshi', image: 'Bilder/01 Grundprogramm Stand/7. Kyu/O-Goshi.png' },
+            { name: 'Uki-Goshi', image: 'Bilder/01 Grundprogramm Stand/7. Kyu/Uki-Goshi.png' },
+            { name: 'Ippon-Seoi-Nage', image: 'Bilder/01 Grundprogramm Stand/6. Kyu/Ippon-seoi-nage.png' },
+            { name: 'Ko-Soto-Gake', image: 'Bilder/01 Grundprogramm Stand/6. Kyu/ko-soto-gake.png' },
+            { name: 'O-Soto-Gari', image: 'Bilder/01 Grundprogramm Stand/6. Kyu/O-Soto-Gari.png' },
+            { name: 'Tai-Otoshi', image: 'Bilder/01 Grundprogramm Stand/6. Kyu/Tai-Otoshi.png' },
+            { name: 'Ko-Uchi-Gari', image: 'Bilder/01 Grundprogramm Stand/5. Kyu/Ko-uchi-gari.png' },
+            { name: 'Sasae-Tsuri-Komi-Ashi', image: 'Bilder/01 Grundprogramm Stand/5. Kyu/sasae-tsuri-komi-ashi.png' },
+            { name: 'Sode-Tsuri-Komi-Goshi', image: 'Bilder/01 Grundprogramm Stand/5. Kyu/Sode-Tsuri-Komi-Goshi.png' },
+            { name: 'Tsuri-Komi-Goshi', image: 'Bilder/01 Grundprogramm Stand/5. Kyu/Tsuri-Komi-Goshi.png' },
+            { name: 'Harai-Goshi', image: 'Bilder/01 Grundprogramm Stand/4. Kyu/Harai-Goshi.png' },
+            { name: 'Koshi-Guruma', image: 'Bilder/01 Grundprogramm Stand/4. Kyu/Koshi-guruma.png' },
+            { name: 'O-Uchi-Gari', image: 'Bilder/01 Grundprogramm Stand/4. Kyu/O-Uchi-Gari.png' },
+            { name: 'Uchi-Mata', image: 'Bilder/01 Grundprogramm Stand/4. Kyu/Uchi-Mata.png' }
+        ];
+
+        const techniquesGrundBoden = [
+            { name: 'Kami-Shiho-Gatame', image: 'Bilder/02 Grundprogramm Boden/7. Kyu/Kami-Shiho-gatame.png' },
+            { name: 'Kesa-Gatame', image: 'Bilder/02 Grundprogramm Boden/7. Kyu/Kesa-Gatame.png' },
+            { name: 'Tate-Shiho-Gatame', image: 'Bilder/02 Grundprogramm Boden/7. Kyu/Tate-Shiho-Gatame.png' },
+            { name: 'Übergang Werfen-Halten', image: 'Bilder/02 Grundprogramm Boden/7. Kyu/Übergang vom Werfen zum Halten.png' },
+            { name: 'Yoko-Shiho-Gatame', image: 'Bilder/02 Grundprogramm Boden/7. Kyu/yoko-shiho-gatame.png' },
+            { name: 'Kuzure-Kami-Shiho-Gatame', image: 'Bilder/02 Grundprogramm Boden/6. Kyu/Kuzure-kami-shiho-gatame.png' },
+            { name: 'Uki-Gatame', image: 'Bilder/02 Grundprogramm Boden/6. Kyu/Uki-gatame.png' },
+            { name: 'Umdrehen gegen Bauchlage', image: 'Bilder/02 Grundprogramm Boden/6. Kyu/Umdrehen gegen Bauchlage.png' },
+            { name: 'Ura-Gatame', image: 'Bilder/02 Grundprogramm Boden/6. Kyu/Ura-Gatame.png' },
+            { name: 'Ushiro-Kesa-Gatame', image: 'Bilder/02 Grundprogramm Boden/6. Kyu/Ushiro-kesa-gatame.png' },
+            { name: 'Angriff gegen Bank', image: 'Bilder/02 Grundprogramm Boden/5. Kyu/angriff gegen die bank.png' },
+            { name: 'Durch Brücke überrollen', image: 'Bilder/02 Grundprogramm Boden/5. Kyu/durch Brücke überrollen.png' },
+            { name: 'Ein Bein klammern', image: 'Bilder/02 Grundprogramm Boden/5. Kyu/ein Bein klammern.png' },
+            { name: 'Auf Bauch drehen', image: 'Bilder/02 Grundprogramm Boden/5. Kyu/sich auf den Bauch drehen.png' },
+            { name: 'Zwischen Beine nehmen', image: 'Bilder/02 Grundprogramm Boden/5. Kyu/zwischen die Beine nehmen.png' },
+            { name: 'Eigene Rückenlage', image: 'Bilder/02 Grundprogramm Boden/4. Kyu/Eigene Rückenlage.png' },
+            { name: 'Juji-Gatame', image: 'Bilder/02 Grundprogramm Boden/4. Kyu/Juji-gatame.png' },
+            { name: 'Ude-Garami', image: 'Bilder/02 Grundprogramm Boden/4. Kyu/ude-garami.png' },
+            { name: 'Ude-Gatame', image: 'Bilder/02 Grundprogramm Boden/4. Kyu/ude-gatame.png' },
+            { name: 'Waki-Gatame', image: 'Bilder/02 Grundprogramm Boden/4. Kyu/waki-gatame.png' }
+        ];
+
+        const techniquesErwStand = [
+            { name: 'Kata-Guruma', image: 'Bilder/03 Erweiterungsprogramm Stand/1. Kyu/Kata-guruma.png' },
+            { name: 'Ko-Uchi-Maki-Komi', image: 'Bilder/03 Erweiterungsprogramm Stand/1. Kyu/ko-uchi-maki-komi.png' },
+            { name: 'Uki-Otoshi', image: 'Bilder/03 Erweiterungsprogramm Stand/1. Kyu/uki-otshi.png' },
+            { name: 'Ura-Nage', image: 'Bilder/03 Erweiterungsprogramm Stand/1. Kyu/Ura-Nage.png' },
+            { name: 'Ashi-Guruma', image: 'Bilder/03 Erweiterungsprogramm Stand/2. Kyu/ashi-guruma.png' },
+            { name: 'Soto-Maki-Komi', image: 'Bilder/03 Erweiterungsprogramm Stand/2. Kyu/Soto-maki-komi.png' },
+            { name: 'Sumi-Gaeshi', image: 'Bilder/03 Erweiterungsprogramm Stand/2. Kyu/sumi-gaeshi.png' },
+            { name: 'Utsuri-Goshi', image: 'Bilder/03 Erweiterungsprogramm Stand/2. Kyu/utsuri-goshi.png' },
+            { name: 'Okuri-Ashi-Barai', image: 'Bilder/03 Erweiterungsprogramm Stand/3. Kyu/Okuri-ashi-Barai.png' },
+            { name: 'Tani-Otoshi', image: 'Bilder/03 Erweiterungsprogramm Stand/3. Kyu/Tani-Otoshi.png' },
+            { name: 'Tomoe-Nage', image: 'Bilder/03 Erweiterungsprogramm Stand/3. Kyu/tomoe-nage.png' },
+            { name: 'Tsuri-Goshi', image: 'Bilder/03 Erweiterungsprogramm Stand/3. Kyu/Tsuri-goschi.png' }
+        ];
+
+        const techniquesErwBoden = [
+            { name: 'Okuri-Eri-Jime', image: 'Bilder/04 Erweiterungsprogramm Boden/1. Kyu/Okuri-eri-jime.png' },
+            { name: 'Positionswechsel 1 (1.Kyu)', image: 'Bilder/04 Erweiterungsprogramm Boden/1. Kyu/Positionswechsel 1.png' },
+            { name: 'Positionswechsel 2 (1.Kyu)', image: 'Bilder/04 Erweiterungsprogramm Boden/1. Kyu/Positionswechsel 2.png' },
+            { name: 'Sankaku-Jime', image: 'Bilder/04 Erweiterungsprogramm Boden/1. Kyu/sankaku-jime.png' },
+            { name: 'Sode-Guruma-Jime', image: 'Bilder/04 Erweiterungsprogramm Boden/1. Kyu/Sode-guruma-jime.png' },
+            { name: 'Tsukomi-Jime', image: 'Bilder/04 Erweiterungsprogramm Boden/1. Kyu/tsukomi-jime.png' },
+            { name: 'Gyaku-Juji-Jime', image: 'Bilder/04 Erweiterungsprogramm Boden/2. Kyu/Gyaku-Juji-Jime.png' },
+            { name: 'Hadaka-Jime', image: 'Bilder/04 Erweiterungsprogramm Boden/2. Kyu/Hadaka-jime.png' },
+            { name: 'Kata-Ha-Jime', image: 'Bilder/04 Erweiterungsprogramm Boden/2. Kyu/Kata-Ha-Jime.png' },
+            { name: 'Koshi-Jime', image: 'Bilder/04 Erweiterungsprogramm Boden/2. Kyu/Koshi-Jime.png' },
+            { name: 'Positionswechsel 1 (2.Kyu)', image: 'Bilder/04 Erweiterungsprogramm Boden/2. Kyu/Positionswechsel 1.png' },
+            { name: 'Positionswechsel 2 (2.Kyu)', image: 'Bilder/04 Erweiterungsprogramm Boden/2. Kyu/Positionswechsel 2.png' },
+            { name: 'Ashi-Gatame', image: 'Bilder/04 Erweiterungsprogramm Boden/3. Kyu/ashi-gatame.png' },
+            { name: 'Hara-Gatame', image: 'Bilder/04 Erweiterungsprogramm Boden/3. Kyu/Hara-Gatame.png' },
+            { name: 'Hiza-Gatame', image: 'Bilder/04 Erweiterungsprogramm Boden/3. Kyu/Hiza-Gatame_.png' },
+            { name: 'Positionswechsel 1 (3.Kyu)', image: 'Bilder/04 Erweiterungsprogramm Boden/3. Kyu/Positionswechsel 1.png' },
+            { name: 'Sankaku-Gatame', image: 'Bilder/04 Erweiterungsprogramm Boden/3. Kyu/sankaku-gatame.png' }
+        ];
+
+        const techniquesWeissGelb = [
+            { name: 'Abschlagen', image: 'Bilder/05 Weiß Gelb/Abschlagen.png' },
+            { name: 'Fallen', image: 'Bilder/05 Weiß Gelb/Fallen.png' },
+            { name: 'Kuzure-Kesa-Gatame', image: 'Bilder/05 Weiß Gelb/kuzure-kesa-gatame.png' },
+            { name: 'Verbeugung', image: 'Bilder/05 Weiß Gelb/Verbeugung.png' },
+            { name: 'Werfen', image: 'Bilder/05 Weiß Gelb/Werfen.png' }
         ];
 
         let grid = [];
         let marked = [];
+        let activeTechniques = [...techniquesGrundStand];
+
+        function updateSelection() {
+            const grundStand = document.getElementById('grundStand').checked;
+            const grundBoden = document.getElementById('grundBoden').checked;
+            const erwStand = document.getElementById('erwStand').checked;
+            const erwBoden = document.getElementById('erwBoden').checked;
+            const weissGelb = document.getElementById('weissGelb').checked;
+
+            activeTechniques = [];
+
+            if (grundStand) activeTechniques = activeTechniques.concat(techniquesGrundStand);
+            if (grundBoden) activeTechniques = activeTechniques.concat(techniquesGrundBoden);
+            if (erwStand) activeTechniques = activeTechniques.concat(techniquesErwStand);
+            if (erwBoden) activeTechniques = activeTechniques.concat(techniquesErwBoden);
+            if (weissGelb) activeTechniques = activeTechniques.concat(techniquesWeissGelb);
+
+            if (activeTechniques.length === 0) {
+                alert('Bitte wähle mindestens ein Programm aus!');
+                document.getElementById('grundStand').checked = true;
+                activeTechniques = [...techniquesGrundStand];
+            }
+
+            generateGrid();
+        }
 
         function generateGrid() {
-            const shuffled = [...techniques].sort(() => Math.random() - 0.5);
+            const shuffled = [...activeTechniques].sort(() => Math.random() - 0.5);
             grid = [];
             for (let i = 0; i < 5; i++) {
                 const row = [];
                 for (let j = 0; j < 5; j++) {
-                    row.push(shuffled[(i * 5 + j) % techniques.length]);
+                    row.push(shuffled[(i * 5 + j) % activeTechniques.length]);
                 }
                 grid.push(row);
             }
@@ -371,16 +566,16 @@
         function renderGrid() {
             const gridEl = document.getElementById('grid');
             gridEl.innerHTML = '';
-            
+
             for (let i = 0; i < 5; i++) {
                 const rowDiv = document.createElement('div');
                 rowDiv.className = 'grid-row';
-                
+
                 const label = document.createElement('div');
                 label.className = 'row-label';
                 label.textContent = i + 1;
                 rowDiv.appendChild(label);
-                
+
                 for (let j = 0; j < 5; j++) {
                     const cell = document.createElement('div');
                     cell.className = 'grid-cell';
@@ -388,30 +583,30 @@
                     if (marked.includes(key)) {
                         cell.classList.add('marked');
                     }
-                    
+
                     const imageContainer = document.createElement('div');
                     imageContainer.className = 'cell-image';
-                    
+
                     const img = document.createElement('img');
                     img.src = grid[i][j].image;
                     img.alt = grid[i][j].name;
                     img.style.width = '100%';
                     img.style.height = '100%';
                     img.style.objectFit = 'contain';
-                    
+
                     imageContainer.appendChild(img);
-                    
+
                     const name = document.createElement('div');
                     name.className = 'cell-name';
                     name.textContent = grid[i][j].name;
-                    
+
                     cell.appendChild(imageContainer);
                     cell.appendChild(name);
                     cell.onclick = () => toggleCell(i, j);
-                    
+
                     rowDiv.appendChild(cell);
                 }
-                
+
                 gridEl.appendChild(rowDiv);
             }
         }
@@ -435,14 +630,14 @@
                     return;
                 }
             }
-            
+
             for (let j = 0; j < 5; j++) {
                 if ([0, 1, 2, 3, 4].every(i => marked.includes(`${i}-${j}`))) {
                     showBingo();
                     return;
                 }
             }
-            
+
             if ([0, 1, 2, 3, 4].every(i => marked.includes(`${i}-${i}`))) {
                 showBingo();
                 return;
@@ -460,17 +655,17 @@
         function rollDice() {
             const dice1El = document.getElementById('dice1');
             const dice2El = document.getElementById('dice2');
-            
+
             dice1El.classList.add('rolling');
             dice2El.classList.add('rolling');
-            
+
             setTimeout(() => {
                 const newDice1 = Math.floor(Math.random() * 6) + 1;
                 const newDice2 = Math.floor(Math.random() * 6) + 1;
-                
+
                 dice1El.textContent = newDice1;
                 dice2El.textContent = newDice2;
-                
+
                 dice1El.classList.remove('rolling');
                 dice2El.classList.remove('rolling');
             }, 500);
@@ -481,77 +676,50 @@
             canvas.width = 800;
             canvas.height = 900;
             const ctx = canvas.getContext('2d');
-            
-            // White background
+
             ctx.fillStyle = 'white';
             ctx.fillRect(0, 0, canvas.width, canvas.height);
-            
-            // Title
+
             ctx.fillStyle = '#1e40af';
             ctx.font = 'bold 32px Arial';
             ctx.textAlign = 'center';
             ctx.fillText('🥋 Judo Graduierungs-Bingo', 400, 50);
-            
-            // Subtitle
+
             ctx.font = '16px Arial';
-            ctx.fillText('Standtechniken - Wurf-Techniken', 400, 75);
-            
+            ctx.fillText('Judo-Techniken', 400, 75);
+
             const cellSize = 140;
             const startX = 50;
             const startY = 100;
-            
-            // Column numbers
+
             ctx.fillStyle = '#1e40af';
             ctx.font = 'bold 20px Arial';
             for (let j = 0; j < 5; j++) {
                 ctx.fillText(`${j + 1}`, startX + j * cellSize + cellSize/2, startY - 20);
             }
-            
-            // Function to load image
-            const loadImage = (src) => {
-                return new Promise((resolve, reject) => {
-                    const img = new Image();
-                    img.crossOrigin = 'anonymous';
-                    img.onload = () => resolve(img);
-                    img.onerror = () => reject(new Error('Image load failed'));
-                    img.src = src;
-                });
-            };
-            
-            // Row numbers and cells with images
+
             for (let i = 0; i < 5; i++) {
-                // Row number
                 ctx.fillStyle = '#1e40af';
                 ctx.font = 'bold 20px Arial';
                 ctx.fillText(`${i + 1}`, startX - 25, startY + i * cellSize + cellSize/2 + 7);
-                
+
                 for (let j = 0; j < 5; j++) {
                     const x = startX + j * cellSize;
                     const y = startY + i * cellSize;
-                    
-                    // Cell border
+
                     ctx.strokeStyle = '#1e40af';
                     ctx.lineWidth = 2;
                     ctx.strokeRect(x, y, cellSize, cellSize);
-                    
-                    // Try to load and draw image
-                    try {
-                        const img = await loadImage(grid[i][j].image);
-                        const imgSize = 90;
-                        const imgX = x + (cellSize - imgSize) / 2;
-                        const imgY = y + 10;
-                        ctx.drawImage(img, imgX, imgY, imgSize, imgSize);
-                    } catch (error) {
-                        // If image fails, draw placeholder
-                        ctx.fillStyle = '#eff6ff';
-                        ctx.fillRect(x + 20, y + 10, 100, 90);
-                        ctx.fillStyle = '#1e40af';
-                        ctx.font = '40px Arial';
-                        ctx.textAlign = 'center';
-                        ctx.fillText('🥋', x + cellSize/2, y + 65);
-                    }
-                    
-                    // Technique name
+
+                    // Draw placeholder (emoji)
+                    ctx.fillStyle = '#eff6ff';
+                    ctx.fillRect(x + 20, y + 10, 100, 90);
+                    ctx.fillStyle = '#1e40af';
+                    ctx.font = '40px Arial';
+                    ctx.textAlign = 'center';
+                    ctx.fillText('🥋', x + cellSize/2, y + 65);
+
+                    // Draw technique name
                     ctx.fillStyle = '#1e3a8a';
                     ctx.font = 'bold 11px Arial';
                     ctx.textAlign = 'center';
@@ -563,16 +731,14 @@
                     });
                 }
             }
-            
-            // Instructions at bottom
+
             ctx.font = '14px Arial';
             ctx.fillStyle = '#374151';
             ctx.textAlign = 'left';
             ctx.fillText('• Würfle mit 2 Würfeln: Würfel 1 = Spalte/Zeile, Würfel 2 = Zeile/Spalte', 50, 820);
             ctx.fillText('• Ziffer 6 = Joker (freie Wahl)', 50, 845);
             ctx.fillText('• Ziel: Erreiche eine vollständige Reihe (horizontal, vertikal oder diagonal)', 50, 870);
-            
-            // Download
+
             const link = document.createElement('a');
             link.download = 'judo-bingo.png';
             link.href = canvas.toDataURL('image/png');
