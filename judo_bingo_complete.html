@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Judo Graduierungs-Bingo</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <style>
         * {
             margin: 0;
@@ -939,13 +940,17 @@
         }
 
         async function downloadImage() {
+            const scale = 3; // 3x resolution for high quality PDF
             const canvas = document.createElement('canvas');
-            canvas.width = 800;
-            canvas.height = 900;
+            canvas.width = 800 * scale;
+            canvas.height = 900 * scale;
             const ctx = canvas.getContext('2d');
 
+            // Scale context for high resolution
+            ctx.scale(scale, scale);
+
             ctx.fillStyle = 'white';
-            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            ctx.fillRect(0, 0, 800, 900);
 
             // Load and draw logos
             const logoLeft = new Image();
@@ -1089,10 +1094,24 @@
             ctx.fillText('• Ziffer 6 = Joker (freie Wahl)', 50, 845);
             ctx.fillText('• Ziel: Erreiche eine vollständige Reihe (horizontal, vertikal oder diagonal)', 50, 870);
 
-            const link = document.createElement('a');
-            link.download = 'judo-bingo.png';
-            link.href = canvas.toDataURL('image/png');
-            link.click();
+            // Generate PDF from canvas
+            const { jsPDF } = window.jspdf;
+            const pdf = new jsPDF({
+                orientation: 'portrait',
+                unit: 'mm',
+                format: 'a4'
+            });
+
+            // Convert canvas to image and add to PDF
+            const imgData = canvas.toDataURL('image/png', 1.0);
+
+            // A4 dimensions: 210mm x 297mm
+            // Calculate dimensions to fit on A4 while maintaining aspect ratio
+            const pdfWidth = 210;
+            const pdfHeight = (900 / 800) * pdfWidth;
+
+            pdf.addImage(imgData, 'PNG', 0, 0, pdfWidth, pdfHeight, undefined, 'FAST');
+            pdf.save('judo-bingo.pdf');
         }
 
         generateGrid();
