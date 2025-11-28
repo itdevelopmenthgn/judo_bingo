@@ -321,6 +321,63 @@
             line-height: 1.3;
         }
 
+        /* Desktop Optimierung - Größere Bildschirme */
+        @media (min-width: 1025px) {
+            .grid-cell {
+                width: 160px;
+                height: 160px;
+            }
+
+            .grid-col-number {
+                width: 160px;
+            }
+
+            .cell-image {
+                width: 100px;
+                height: 100px;
+            }
+        }
+
+        @media (min-width: 1280px) {
+            .grid-cell {
+                width: 180px;
+                height: 180px;
+            }
+
+            .grid-col-number {
+                width: 180px;
+            }
+
+            .cell-image {
+                width: 115px;
+                height: 115px;
+            }
+
+            .cell-name {
+                font-size: 0.8em;
+            }
+        }
+
+        @media (min-width: 1600px) {
+            .grid-cell {
+                width: 200px;
+                height: 200px;
+            }
+
+            .grid-col-number {
+                width: 200px;
+            }
+
+            .cell-image {
+                width: 130px;
+                height: 130px;
+            }
+
+            .cell-name {
+                font-size: 0.85em;
+            }
+        }
+
         .instructions {
             background: white;
             border-radius: 12px;
