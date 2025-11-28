@@ -964,15 +964,41 @@
                         ctx.fillText('🥋', x + cellSize/2, y + 65);
                     }
 
-                    // Draw technique name
+                    // Draw technique name with intelligent line breaking
                     ctx.fillStyle = '#1e3a8a';
                     ctx.font = 'bold 11px Arial';
                     ctx.textAlign = 'center';
                     const technique = grid[i][j].name;
+                    const maxWidth = cellSize - 20; // Available width for text
+
+                    // Split into words and try to fit into max 2 lines
                     const words = technique.split('-');
+                    let lines = [];
+                    let currentLine = '';
+
+                    for (let w = 0; w < words.length; w++) {
+                        const testLine = currentLine ? currentLine + '-' + words[w] : words[w];
+                        const metrics = ctx.measureText(testLine);
+
+                        if (metrics.width > maxWidth && currentLine !== '') {
+                            lines.push(currentLine);
+                            currentLine = words[w];
+                        } else {
+                            currentLine = testLine;
+                        }
+                    }
+                    if (currentLine) {
+                        lines.push(currentLine);
+                    }
+
+                    // Limit to 2 lines
+                    if (lines.length > 2) {
+                        lines = [lines[0], lines.slice(1).join('-')];
+                    }
+
                     const textStartY = y + 110;
-                    words.forEach((word, idx) => {
-                        ctx.fillText(word, x + cellSize/2, textStartY + (idx * 13));
+                    lines.forEach((line, idx) => {
+                        ctx.fillText(line, x + cellSize/2, textStartY + (idx * 13));
                     });
                 }
             }
