@@ -714,6 +714,12 @@
                 ctx.drawImage(logoRight, 750 - logoWidth, logoY, logoWidth, logoHeight);
             }
 
+            // Draw title between logos
+            ctx.fillStyle = '#1e40af';
+            ctx.font = 'bold 28px Arial';
+            ctx.textAlign = 'center';
+            ctx.fillText('Graduierungsbingo', 400, logoY + logoHeight/2 + 10);
+
             const cellSize = 140;
             const startX = 50;
             const startY = 100;
