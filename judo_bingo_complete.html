@@ -683,6 +683,15 @@
                 <li>✅ Ziel: Erreiche eine vollständige 5er-Reihe (horizontal, vertikal oder diagonal)</li>
                 <li>✅ Bei BINGO laut "BUDO BINGO!" rufen! 🎉</li>
             </ul>
+            <div style="margin-top: 20px; text-align: center; padding-top: 15px; border-top: 2px solid #93c5fd;">
+                <p style="color: #1e3a8a; font-weight: bold; margin-bottom: 10px;">🌐 Weitere Informationen:</p>
+                <p style="margin: 5px 0;">
+                    <a href="https://www.budo-spiele.de/" target="_blank" style="color: #2563eb; text-decoration: none; font-weight: bold;">www.budo-spiele.de</a>
+                </p>
+                <p style="margin: 5px 0;">
+                    <a href="https://www.judobund.de" target="_blank" style="color: #2563eb; text-decoration: none; font-weight: bold;">www.judobund.de</a>
+                </p>
+            </div>
         </div>
     </div>
 
@@ -1091,8 +1100,18 @@
             ctx.fillStyle = '#374151';
             ctx.textAlign = 'left';
             ctx.fillText('• Würfle mit 2 Würfeln: Würfel 1 = Spalte/Zeile, Würfel 2 = Zeile/Spalte', 50, 820);
-            ctx.fillText('• Ziffer 6 = Joker (freie Wahl)', 50, 845);
-            ctx.fillText('• Ziel: Erreiche eine vollständige Reihe (horizontal, vertikal oder diagonal)', 50, 870);
+            ctx.fillText('• Ziffer 6 = Joker (freie Wahl)', 50, 840);
+            ctx.fillText('• Ziel: Erreiche eine vollständige Reihe (horizontal, vertikal oder diagonal)', 50, 860);
+
+            // Add website links
+            ctx.font = 'bold 13px Arial';
+            ctx.fillStyle = '#1e3a8a';
+            ctx.fillText('Weitere Informationen:', 50, 885);
+
+            ctx.font = '12px Arial';
+            ctx.fillStyle = '#2563eb';
+            ctx.fillText('www.budo-spiele.de', 50, 903);
+            ctx.fillText('www.judobund.de', 220, 903);
 
             // Generate PDF from canvas
             const { jsPDF } = window.jspdf;
@@ -1111,6 +1130,25 @@
             const pdfHeight = (900 / 800) * pdfWidth;
 
             pdf.addImage(imgData, 'PNG', 0, 0, pdfWidth, pdfHeight, undefined, 'FAST');
+
+            // Add clickable links to PDF
+            // Convert pixel coordinates to PDF coordinates (mm)
+            const pixelToMm = pdfWidth / 800;
+
+            // Link 1: www.budo-spiele.de (position: x=50, y=903, width~120, height~15)
+            const link1X = 50 * pixelToMm;
+            const link1Y = 903 * pixelToMm;
+            const link1Width = 120 * pixelToMm;
+            const link1Height = 15 * pixelToMm;
+            pdf.link(link1X, link1Y, link1Width, link1Height, {url: 'https://www.budo-spiele.de/'});
+
+            // Link 2: www.judobund.de (position: x=220, y=903, width~100, height~15)
+            const link2X = 220 * pixelToMm;
+            const link2Y = 903 * pixelToMm;
+            const link2Width = 100 * pixelToMm;
+            const link2Height = 15 * pixelToMm;
+            pdf.link(link2X, link2Y, link2Width, link2Height, {url: 'https://www.judobund.de'});
+
             pdf.save('judo-bingo.pdf');
         }
 
