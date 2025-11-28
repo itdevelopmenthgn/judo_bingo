@@ -571,6 +571,10 @@
                     <input type="checkbox" id="weissGelb" onchange="updateSelection()">
                     <label for="weissGelb">Weiß Gelb</label>
                 </div>
+                <div class="checkbox-item">
+                    <input type="checkbox" id="taiso" onchange="updateSelection()">
+                    <label for="taiso">Taiso</label>
+                </div>
             </div>
         </div>
 
@@ -708,6 +712,20 @@
             { name: 'Werfen', image: 'Bilder/05 Weiß Gelb/Werfen.png' }
         ];
 
+        const techniquesTaiso = [
+            { name: 'Ashi-Guruma', image: 'Bilder/06 Taiso/Ashi-Guruma.png' },
+            { name: 'De-Ashi-Barai', image: 'Bilder/06 Taiso/De-ashi-barai.png' },
+            { name: 'Ko-Uchi-Gari', image: 'Bilder/06 Taiso/Ko-uchi-gari.png' },
+            { name: 'O-Soto-Gari', image: 'Bilder/06 Taiso/o-soto-gari.png' },
+            { name: 'O-Uchi-Gari', image: 'Bilder/06 Taiso/O-uchi-gari.png' },
+            { name: 'Okuri-Ashi-Barai', image: 'Bilder/06 Taiso/Okuri-ashi-barai.png' },
+            { name: 'Sasae-Tsuri-Komi-Ashi', image: 'Bilder/06 Taiso/sasae.png' },
+            { name: 'Sode-Tsuri-Komi-Goshi', image: 'Bilder/06 Taiso/Sode-tsuri-komi-goshi.png' },
+            { name: 'Tai-Otoshi', image: 'Bilder/06 Taiso/Tai-Otoshi.png' },
+            { name: 'Tsubame-Gaeshi', image: 'Bilder/06 Taiso/tsubame .png' },
+            { name: 'Uchi-Mata', image: 'Bilder/06 Taiso/uchi-mata.png' }
+        ];
+
         let grid = [];
         let marked = [];
         let activeTechniques = [...techniquesGrundStand];
@@ -718,6 +736,7 @@
             const erwStand = document.getElementById('erwStand').checked;
             const erwBoden = document.getElementById('erwBoden').checked;
             const weissGelb = document.getElementById('weissGelb').checked;
+            const taiso = document.getElementById('taiso').checked;
 
             activeTechniques = [];
 
@@ -726,6 +745,7 @@
             if (erwStand) activeTechniques = activeTechniques.concat(techniquesErwStand);
             if (erwBoden) activeTechniques = activeTechniques.concat(techniquesErwBoden);
             if (weissGelb) activeTechniques = activeTechniques.concat(techniquesWeissGelb);
+            if (taiso) activeTechniques = activeTechniques.concat(techniquesTaiso);
 
             if (activeTechniques.length === 0) {
                 alert('Bitte wähle mindestens ein Programm aus!');
