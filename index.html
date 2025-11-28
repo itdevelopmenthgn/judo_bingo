@@ -1092,6 +1092,14 @@
                     <input type="checkbox" id="taiso" onchange="updateSelection()">
                     <label for="taiso">Taiso</label>
                 </div>
+                <div class="checkbox-item">
+                    <input type="checkbox" id="kampfrichter" onchange="updateSelection()">
+                    <label for="kampfrichter">Kampfrichterzeichen</label>
+                </div>
+                <div class="checkbox-item">
+                    <input type="checkbox" id="judowerte" onchange="updateSelection()">
+                    <label for="judowerte">Judowerte</label>
+                </div>
             </div>
         </div>
 
@@ -1154,102 +1162,149 @@
 
     <script>
         const techniquesGrundStand = [
-            { name: 'De-Ashi-Barai', image: 'Bilder/01 Grundprogramm Stand/7. Kyu/De-Ashi-Barai.png' },
-            { name: 'Morote-Seoi-Nage', image: 'Bilder/01 Grundprogramm Stand/7. Kyu/morote-seoi-nage.png' },
-            { name: 'O-Goshi', image: 'Bilder/01 Grundprogramm Stand/7. Kyu/O-Goshi.png' },
-            { name: 'Uki-Goshi', image: 'Bilder/01 Grundprogramm Stand/7. Kyu/Uki-Goshi.png' },
-            { name: 'Ippon-Seoi-Nage', image: 'Bilder/01 Grundprogramm Stand/6. Kyu/Ippon-seoi-nage.png' },
-            { name: 'Ko-Soto-Gake', image: 'Bilder/01 Grundprogramm Stand/6. Kyu/ko-soto-gake.png' },
+            { name: 'De-ashi-barai', image: 'Bilder/01 Grundprogramm Stand/7. Kyu/djb_budo_spiele_De-ashi-barai.png' },
+            { name: 'Morote-seoi-nage', image: 'Bilder/01 Grundprogramm Stand/7. Kyu/djb_budo_spiele_Morote-seoi-nage.png' },
+            { name: 'O-goshi', image: 'Bilder/01 Grundprogramm Stand/7. Kyu/djb_budo_spiele_O-goshi.png' },
+            { name: 'Uki-goshi', image: 'Bilder/01 Grundprogramm Stand/7. Kyu/djb_budo_spiele_Uki-goshi.png' },
+            { name: 'Ippon-seoi-nage', image: 'Bilder/01 Grundprogramm Stand/6. Kyu/Ippon-seoi-nage.png' },
+            { name: 'ko-soto-gake', image: 'Bilder/01 Grundprogramm Stand/6. Kyu/ko-soto-gake.png' },
             { name: 'O-Soto-Gari', image: 'Bilder/01 Grundprogramm Stand/6. Kyu/O-Soto-Gari.png' },
             { name: 'Tai-Otoshi', image: 'Bilder/01 Grundprogramm Stand/6. Kyu/Tai-Otoshi.png' },
-            { name: 'Ko-Uchi-Gari', image: 'Bilder/01 Grundprogramm Stand/5. Kyu/Ko-uchi-gari.png' },
-            { name: 'Sasae-Tsuri-Komi-Ashi', image: 'Bilder/01 Grundprogramm Stand/5. Kyu/sasae-tsuri-komi-ashi.png' },
-            { name: 'Sode-Tsuri-Komi-Goshi', image: 'Bilder/01 Grundprogramm Stand/5. Kyu/Sode-Tsuri-Komi-Goshi.png' },
-            { name: 'Tsuri-Komi-Goshi', image: 'Bilder/01 Grundprogramm Stand/5. Kyu/Tsuri-Komi-Goshi.png' },
-            { name: 'Harai-Goshi', image: 'Bilder/01 Grundprogramm Stand/4. Kyu/Harai-Goshi.png' },
-            { name: 'Koshi-Guruma', image: 'Bilder/01 Grundprogramm Stand/4. Kyu/Koshi-guruma.png' },
-            { name: 'O-Uchi-Gari', image: 'Bilder/01 Grundprogramm Stand/4. Kyu/O-Uchi-Gari.png' },
-            { name: 'Uchi-Mata', image: 'Bilder/01 Grundprogramm Stand/4. Kyu/Uchi-Mata.png' }
+            { name: 'Ko-uchi-gari', image: 'Bilder/01 Grundprogramm Stand/5. Kyu/djb_budo_spiele_Ko-uchi-gari.png' },
+            { name: 'sasae-tsuri-komi-ashi', image: 'Bilder/01 Grundprogramm Stand/5. Kyu/djb_budo_spiele_sasae-tsuri-komi-ashi.png' },
+            { name: 'Sode-Tsuri-Komi-Goshi', image: 'Bilder/01 Grundprogramm Stand/5. Kyu/djb_budo_spiele_Sode-Tsuri-Komi-Goshi.png' },
+            { name: 'Tsuri-Komi-Goshi', image: 'Bilder/01 Grundprogramm Stand/5. Kyu/djb_budo_spiele_Tsuri-Komi-Goshi.png' },
+            { name: 'Harai-Goshi', image: 'Bilder/01 Grundprogramm Stand/4. Kyu/djb_budo_spiele_Harai-Goshi.png' },
+            { name: 'Koshi-guruma', image: 'Bilder/01 Grundprogramm Stand/4. Kyu/djb_budo_spiele_Koshi-guruma.png' },
+            { name: 'O-Soto-Gari', image: 'Bilder/01 Grundprogramm Stand/4. Kyu/djb_budo_spiele_O-Soto-Gari.png' },
+            { name: 'O-Uchi-Gari', image: 'Bilder/01 Grundprogramm Stand/4. Kyu/djb_budo_spiele_O-Uchi-Gari.png' },
+            { name: 'Uchi-Mata', image: 'Bilder/01 Grundprogramm Stand/4. Kyu/djb_budo_spiele_Uchi-Mata.png' }
         ];
 
         const techniquesGrundBoden = [
-            { name: 'Kami-Shiho-Gatame', image: 'Bilder/02 Grundprogramm Boden/7. Kyu/Kami-Shiho-gatame.png' },
-            { name: 'Kesa-Gatame', image: 'Bilder/02 Grundprogramm Boden/7. Kyu/Kesa-Gatame.png' },
-            { name: 'Tate-Shiho-Gatame', image: 'Bilder/02 Grundprogramm Boden/7. Kyu/Tate-Shiho-Gatame.png' },
-            { name: 'Übergang Werfen-Halten', image: 'Bilder/02 Grundprogramm Boden/7. Kyu/Übergang vom Werfen zum Halten.png' },
-            { name: 'Yoko-Shiho-Gatame', image: 'Bilder/02 Grundprogramm Boden/7. Kyu/yoko-shiho-gatame.png' },
-            { name: 'Kuzure-Kami-Shiho-Gatame', image: 'Bilder/02 Grundprogramm Boden/6. Kyu/Kuzure-kami-shiho-gatame.png' },
-            { name: 'Uki-Gatame', image: 'Bilder/02 Grundprogramm Boden/6. Kyu/Uki-gatame.png' },
-            { name: 'Umdrehen gegen Bauchlage', image: 'Bilder/02 Grundprogramm Boden/6. Kyu/Umdrehen gegen Bauchlage.png' },
-            { name: 'Ura-Gatame', image: 'Bilder/02 Grundprogramm Boden/6. Kyu/Ura-Gatame.png' },
-            { name: 'Ushiro-Kesa-Gatame', image: 'Bilder/02 Grundprogramm Boden/6. Kyu/Ushiro-kesa-gatame.png' },
-            { name: 'Angriff gegen Bank', image: 'Bilder/02 Grundprogramm Boden/5. Kyu/angriff gegen die bank.png' },
-            { name: 'Durch Brücke überrollen', image: 'Bilder/02 Grundprogramm Boden/5. Kyu/durch Brücke überrollen.png' },
-            { name: 'Ein Bein klammern', image: 'Bilder/02 Grundprogramm Boden/5. Kyu/ein Bein klammern.png' },
-            { name: 'Auf Bauch drehen', image: 'Bilder/02 Grundprogramm Boden/5. Kyu/sich auf den Bauch drehen.png' },
-            { name: 'Zwischen Beine nehmen', image: 'Bilder/02 Grundprogramm Boden/5. Kyu/zwischen die Beine nehmen.png' },
-            { name: 'Eigene Rückenlage', image: 'Bilder/02 Grundprogramm Boden/4. Kyu/Eigene Rückenlage.png' },
-            { name: 'Juji-Gatame', image: 'Bilder/02 Grundprogramm Boden/4. Kyu/Juji-gatame.png' },
-            { name: 'Ude-Garami', image: 'Bilder/02 Grundprogramm Boden/4. Kyu/ude-garami.png' },
-            { name: 'Ude-Gatame', image: 'Bilder/02 Grundprogramm Boden/4. Kyu/ude-gatame.png' },
-            { name: 'Waki-Gatame', image: 'Bilder/02 Grundprogramm Boden/4. Kyu/waki-gatame.png' }
+            { name: 'Kami-shiho-gatame', image: 'Bilder/02 Grundprogramm Boden/7. Kyu/djb_budo_spiele_Kami-shiho-gatame.png' },
+            { name: 'Kesa-gatame', image: 'Bilder/02 Grundprogramm Boden/7. Kyu/djb_budo_spiele_Kesa-gatame.png' },
+            { name: 'Tate-shiho-gatame', image: 'Bilder/02 Grundprogramm Boden/7. Kyu/djb_budo_spiele_Tate-shiho-gatame.png' },
+            { name: 'yoko-shiho-gatame', image: 'Bilder/02 Grundprogramm Boden/7. Kyu/djb_budo_spiele_yoko-shiho-gatame.png' },
+            { name: 'Übergang Werfen-Halten', image: 'Bilder/02 Grundprogramm Boden/7. Kyu/djb_budo_spiele_Übergang vom Werfen zum Halten.png' },
+            { name: 'Kuzure-kami-shiho-gatame', image: 'Bilder/02 Grundprogramm Boden/6. Kyu/djb_budo_spiele_Kuzure-kami-shiho-gatame.png' },
+            { name: 'Uki-gatame', image: 'Bilder/02 Grundprogramm Boden/6. Kyu/djb_budo_spiele_Uki-gatame.png' },
+            { name: 'Umdrehen gegen Bauchlage', image: 'Bilder/02 Grundprogramm Boden/6. Kyu/djb_budo_spiele_Umdrehen gegen Bauchlage.png' },
+            { name: 'Ura-Gatame', image: 'Bilder/02 Grundprogramm Boden/6. Kyu/djb_budo_spiele_Ura-Gatame.png' },
+            { name: 'Ushiro-kesa-gatame', image: 'Bilder/02 Grundprogramm Boden/6. Kyu/djb_budo_spiele_Ushiro-kesa-gatame.png' },
+            { name: 'Angriff gegen die Bank', image: 'Bilder/02 Grundprogramm Boden/5. Kyu/djb_budo_spiele_Angriff gegen die Bank.png' },
+            { name: 'durch Brücke überrollen', image: 'Bilder/02 Grundprogramm Boden/5. Kyu/djb_budo_spiele_durch Brücke überrollen.png' },
+            { name: 'ein Bein klammern', image: 'Bilder/02 Grundprogramm Boden/5. Kyu/djb_budo_spiele_ein Bein klammern.png' },
+            { name: 'auf den Bauch drehen', image: 'Bilder/02 Grundprogramm Boden/5. Kyu/djb_budo_spiele_sich auf den Bauch drehen.png' },
+            { name: 'zwischen die Beine nehmen', image: 'Bilder/02 Grundprogramm Boden/5. Kyu/djb_budo_spiele_zwischen die Beine nehmen.png' },
+            { name: 'Juji-gatame', image: 'Bilder/02 Grundprogramm Boden/4. Kyu/djb_budo_spiele_Juji-gatame.png' },
+            { name: 'Ude-garami', image: 'Bilder/02 Grundprogramm Boden/4. Kyu/djb_budo_spiele_Ude-garami.png' },
+            { name: 'Ude-gatame', image: 'Bilder/02 Grundprogramm Boden/4. Kyu/djb_budo_spiele_Ude-gatame.png' },
+            { name: 'Waki-gatame', image: 'Bilder/02 Grundprogramm Boden/4. Kyu/djb_budo_spiele_Waki-gatame.png' },
+            { name: 'eigene Rückenlage', image: 'Bilder/02 Grundprogramm Boden/4. Kyu/djb_budo_spiele_eigene_Rückenlage.png' }
         ];
 
         const techniquesErwStand = [
-            { name: 'Kata-Guruma', image: 'Bilder/03 Erweiterungsprogramm Stand/1. Kyu/Kata-guruma.png' },
-            { name: 'Ko-Uchi-Maki-Komi', image: 'Bilder/03 Erweiterungsprogramm Stand/1. Kyu/ko-uchi-maki-komi.png' },
-            { name: 'Uki-Otoshi', image: 'Bilder/03 Erweiterungsprogramm Stand/1. Kyu/uki-otshi.png' },
-            { name: 'Ura-Nage', image: 'Bilder/03 Erweiterungsprogramm Stand/1. Kyu/Ura-Nage.png' },
-            { name: 'Ashi-Guruma', image: 'Bilder/03 Erweiterungsprogramm Stand/2. Kyu/ashi-guruma.png' },
-            { name: 'Soto-Maki-Komi', image: 'Bilder/03 Erweiterungsprogramm Stand/2. Kyu/Soto-maki-komi.png' },
-            { name: 'Sumi-Gaeshi', image: 'Bilder/03 Erweiterungsprogramm Stand/2. Kyu/sumi-gaeshi.png' },
-            { name: 'Utsuri-Goshi', image: 'Bilder/03 Erweiterungsprogramm Stand/2. Kyu/utsuri-goshi.png' },
-            { name: 'Okuri-Ashi-Barai', image: 'Bilder/03 Erweiterungsprogramm Stand/3. Kyu/Okuri-ashi-Barai.png' },
-            { name: 'Tani-Otoshi', image: 'Bilder/03 Erweiterungsprogramm Stand/3. Kyu/Tani-Otoshi.png' },
-            { name: 'Tomoe-Nage', image: 'Bilder/03 Erweiterungsprogramm Stand/3. Kyu/tomoe-nage.png' },
-            { name: 'Tsuri-Goshi', image: 'Bilder/03 Erweiterungsprogramm Stand/3. Kyu/Tsuri-goschi.png' }
+            { name: 'Okuri-ashi-barai', image: 'Bilder/03 Erweiterungsprogramm Stand/3. Kyu/djb_budo_spiele_Okuri-ashi_barai.png' },
+            { name: 'Tani-otoshi', image: 'Bilder/03 Erweiterungsprogramm Stand/3. Kyu/djb_budo_spiele_Tani-otoshi.png' },
+            { name: 'Tomoe-nage', image: 'Bilder/03 Erweiterungsprogramm Stand/3. Kyu/djb_budo_spiele_Tomoe-nage.png' },
+            { name: 'Tsuri-goshi', image: 'Bilder/03 Erweiterungsprogramm Stand/3. Kyu/djb_budo_spiele_Tsuri-goschi.png' },
+            { name: 'Ashi-guruma', image: 'Bilder/03 Erweiterungsprogramm Stand/2. Kyu/djb_budo_spiele__Ashi-guruma.png' },
+            { name: 'Soto-maki-komi', image: 'Bilder/03 Erweiterungsprogramm Stand/2. Kyu/djb_budo_spiele_Soto-maki-komi.png' },
+            { name: 'Sumi-gaeshi', image: 'Bilder/03 Erweiterungsprogramm Stand/2. Kyu/djb_budo_spiele_Sumi-gaeshi.png' },
+            { name: 'Utsuri-goshi', image: 'Bilder/03 Erweiterungsprogramm Stand/2. Kyu/djb_budo_spiele_Utsuri-goshi.png' },
+            { name: 'Kata-guruma', image: 'Bilder/03 Erweiterungsprogramm Stand/1. Kyu/djb_budo_spiele_Kata-guruma.png' },
+            { name: 'Ko-uchi-maki-komi', image: 'Bilder/03 Erweiterungsprogramm Stand/1. Kyu/djb_budo_spiele_Ko-uchi-maki-komi.png' },
+            { name: 'Uki-otoshi', image: 'Bilder/03 Erweiterungsprogramm Stand/1. Kyu/djb_budo_spiele_Uki-otshi.png' },
+            { name: 'Ura-nage', image: 'Bilder/03 Erweiterungsprogramm Stand/1. Kyu/djb_budo_spiele_Ura-nage.png' }
         ];
 
         const techniquesErwBoden = [
-            { name: 'Okuri-Eri-Jime', image: 'Bilder/04 Erweiterungsprogramm Boden/1. Kyu/Okuri-eri-jime.png' },
-            { name: 'Positionswechsel 1 (1.Kyu)', image: 'Bilder/04 Erweiterungsprogramm Boden/1. Kyu/Positionswechsel 1.png' },
-            { name: 'Positionswechsel 2 (1.Kyu)', image: 'Bilder/04 Erweiterungsprogramm Boden/1. Kyu/Positionswechsel 2.png' },
-            { name: 'Sankaku-Jime', image: 'Bilder/04 Erweiterungsprogramm Boden/1. Kyu/sankaku-jime.png' },
-            { name: 'Sode-Guruma-Jime', image: 'Bilder/04 Erweiterungsprogramm Boden/1. Kyu/Sode-guruma-jime.png' },
-            { name: 'Tsukomi-Jime', image: 'Bilder/04 Erweiterungsprogramm Boden/1. Kyu/tsukomi-jime.png' },
-            { name: 'Gyaku-Juji-Jime', image: 'Bilder/04 Erweiterungsprogramm Boden/2. Kyu/Gyaku-Juji-Jime.png' },
-            { name: 'Hadaka-Jime', image: 'Bilder/04 Erweiterungsprogramm Boden/2. Kyu/Hadaka-jime.png' },
-            { name: 'Kata-Ha-Jime', image: 'Bilder/04 Erweiterungsprogramm Boden/2. Kyu/Kata-Ha-Jime.png' },
-            { name: 'Koshi-Jime', image: 'Bilder/04 Erweiterungsprogramm Boden/2. Kyu/Koshi-Jime.png' },
-            { name: 'Positionswechsel 1 (2.Kyu)', image: 'Bilder/04 Erweiterungsprogramm Boden/2. Kyu/Positionswechsel 1.png' },
-            { name: 'Positionswechsel 2 (2.Kyu)', image: 'Bilder/04 Erweiterungsprogramm Boden/2. Kyu/Positionswechsel 2.png' },
-            { name: 'Ashi-Gatame', image: 'Bilder/04 Erweiterungsprogramm Boden/3. Kyu/ashi-gatame.png' },
-            { name: 'Hara-Gatame', image: 'Bilder/04 Erweiterungsprogramm Boden/3. Kyu/Hara-Gatame.png' },
-            { name: 'Hiza-Gatame', image: 'Bilder/04 Erweiterungsprogramm Boden/3. Kyu/Hiza-Gatame_.png' },
-            { name: 'Positionswechsel 1 (3.Kyu)', image: 'Bilder/04 Erweiterungsprogramm Boden/3. Kyu/Positionswechsel 1.png' },
-            { name: 'Sankaku-Gatame', image: 'Bilder/04 Erweiterungsprogramm Boden/3. Kyu/sankaku-gatame.png' }
+            { name: 'Ashi-gatame', image: 'Bilder/04 Erweiterungsprogramm Boden/3. Kyu/djb_budo_spiele_Ashi-gatame.png' },
+            { name: 'Hara-gatame', image: 'Bilder/04 Erweiterungsprogramm Boden/3. Kyu/djb_budo_spiele_Hara-gatame.png' },
+            { name: 'Hiza-gatame', image: 'Bilder/04 Erweiterungsprogramm Boden/3. Kyu/djb_budo_spiele_Hiza-gatame_.png' },
+            { name: 'Positionswechsel 1 (3.Kyu)', image: 'Bilder/04 Erweiterungsprogramm Boden/3. Kyu/djb_budo_spiele_Positionswechsel 1.png' },
+            { name: 'Sankaku-gatame', image: 'Bilder/04 Erweiterungsprogramm Boden/3. Kyu/djb_budo_spiele_Sankaku-gatame.png' },
+            { name: 'Gyaku-juji-jime', image: 'Bilder/04 Erweiterungsprogramm Boden/2. Kyu/djb_budo_spiele_Gyaku-juji-jime.png' },
+            { name: 'Hadaka-jime', image: 'Bilder/04 Erweiterungsprogramm Boden/2. Kyu/djb_budo_spiele_Hadaka-jime.png' },
+            { name: 'Kata-ha-jime', image: 'Bilder/04 Erweiterungsprogramm Boden/2. Kyu/djb_budo_spiele_Kata-ha-jime.png' },
+            { name: 'Koshi-jime', image: 'Bilder/04 Erweiterungsprogramm Boden/2. Kyu/djb_budo_spiele_Okuri-eri-jime (Koshi-jime).png' },
+            { name: 'Positionswechsel 1 (2.Kyu)', image: 'Bilder/04 Erweiterungsprogramm Boden/2. Kyu/djb_budo_spiele_Positionswechsel 1.png' },
+            { name: 'Positionswechsel 2 (2.Kyu)', image: 'Bilder/04 Erweiterungsprogramm Boden/2. Kyu/djb_budo_spiele_Positionswechsel 2.png' },
+            { name: 'Okuri-eri-jime', image: 'Bilder/04 Erweiterungsprogramm Boden/1. Kyu/djb_budo_spiele_Okuri-eri-jime.png' },
+            { name: 'Positionswechsel 1 (1.Kyu)', image: 'Bilder/04 Erweiterungsprogramm Boden/1. Kyu/djb_budo_spiele_Positionswechsel 1.png' },
+            { name: 'Positionswechsel 2 (1.Kyu)', image: 'Bilder/04 Erweiterungsprogramm Boden/1. Kyu/djb_budo_spiele_Positionswechsel 2.png' },
+            { name: 'Sankaku-jime', image: 'Bilder/04 Erweiterungsprogramm Boden/1. Kyu/djb_budo_spiele_Sankaku-jime.png' },
+            { name: 'Sode-guruma-jime', image: 'Bilder/04 Erweiterungsprogramm Boden/1. Kyu/djb_budo_spiele_Sode-guruma-jime.png' },
+            { name: 'Tsukomi-jime', image: 'Bilder/04 Erweiterungsprogramm Boden/1. Kyu/djb_budo_spiele_Tsukomi-jime.png' }
         ];
 
         const techniquesWeissGelb = [
-            { name: 'Abschlagen', image: 'Bilder/05 Weiß Gelb/Abschlagen.png' },
-            { name: 'Fallen', image: 'Bilder/05 Weiß Gelb/Fallen.png' },
-            { name: 'Kuzure-Kesa-Gatame', image: 'Bilder/05 Weiß Gelb/kuzure-kesa-gatame.png' },
-            { name: 'Verbeugung', image: 'Bilder/05 Weiß Gelb/Verbeugung.png' },
-            { name: 'Werfen', image: 'Bilder/05 Weiß Gelb/Werfen.png' }
+            { name: 'Abschlagen', image: 'Bilder/05 Weiß Gelb/djb_budo_spiele_Abschlagen.png' },
+            { name: 'Kuzure-kesa-gatame', image: 'Bilder/05 Weiß Gelb/djb_budo_spiele_Kuzure-kesa-gatame.png' },
+            { name: 'Verbeugung', image: 'Bilder/05 Weiß Gelb/djb_budo_spiele_Verbeugung.png' },
+            { name: 'Werfen', image: 'Bilder/05 Weiß Gelb/djb_budo_spiele_Werfen.png' },
+            { name: 'Fallen', image: 'Bilder/05 Weiß Gelb/djb_budo_spiele_ukemi_Fallen.png' }
         ];
 
         const techniquesTaiso = [
-            { name: 'Ashi-Guruma', image: 'Bilder/06 Taiso/Ashi-Guruma.png' },
-            { name: 'De-Ashi-Barai', image: 'Bilder/06 Taiso/De-ashi-barai.png' },
-            { name: 'Ko-Uchi-Gari', image: 'Bilder/06 Taiso/Ko-uchi-gari.png' },
-            { name: 'O-Soto-Gari', image: 'Bilder/06 Taiso/o-soto-gari.png' },
-            { name: 'O-Uchi-Gari', image: 'Bilder/06 Taiso/O-uchi-gari.png' },
-            { name: 'Okuri-Ashi-Barai', image: 'Bilder/06 Taiso/Okuri-ashi-barai.png' },
-            { name: 'Sasae-Tsuri-Komi-Ashi', image: 'Bilder/06 Taiso/sasae.png' },
-            { name: 'Sode-Tsuri-Komi-Goshi', image: 'Bilder/06 Taiso/Sode-tsuri-komi-goshi.png' },
-            { name: 'Tai-Otoshi', image: 'Bilder/06 Taiso/Tai-Otoshi.png' },
-            { name: 'Tsubame-Gaeshi', image: 'Bilder/06 Taiso/tsubame .png' },
-            { name: 'Uchi-Mata', image: 'Bilder/06 Taiso/uchi-mata.png' }
+            { name: 'Ashi-Guruma', image: 'Bilder/06 Taiso/djb_taiso_Ashi-guruma.png' },
+            { name: 'De-Ashi-Barai', image: 'Bilder/06 Taiso/djb_taiso_De-ashi-barai.png' },
+            { name: 'Ko-Uchi-Gari', image: 'Bilder/06 Taiso/djb_taiso_Ko-uchi-gari.png' },
+            { name: 'O-Soto-Gari', image: 'Bilder/06 Taiso/djb_taiso_O-soto-gari.png' },
+            { name: 'O-Uchi-Gari', image: 'Bilder/06 Taiso/djb_taiso_O-uchi-gari.png' },
+            { name: 'Okuri-Ashi-Barai', image: 'Bilder/06 Taiso/djb_taiso_Okuri-ashi-barai.png' },
+            { name: 'Sasae-Tsuri-Komi-Ashi', image: 'Bilder/06 Taiso/djb_taiso_sasae_tsuri_komi_ashi.png' },
+            { name: 'Sode-Tsuri-Komi-Goshi', image: 'Bilder/06 Taiso/djb_taiso_Sode-tsuri-komi-goshi.png' },
+            { name: 'Tai-Otoshi', image: 'Bilder/06 Taiso/djb_taiso_Tai-Otoshi.png' },
+            { name: 'Tsubame-Gaeshi', image: 'Bilder/06 Taiso/djb_taiso_Tsubame .png' },
+            { name: 'Uchi-Mata', image: 'Bilder/06 Taiso/djb_taiso_Uchi-mata.png' }
+        ];
+
+        const techniquesKampfrichter = [
+            { name: 'Arzt rufen', image: 'Bilder/07 Kampfrichterzeichen/budo_spiele_kr_zeichen_judo_arzt_rufen.png' },
+            { name: 'Aufstehen', image: 'Bilder/07 Kampfrichterzeichen/budo_spiele_kr_zeichen_judo_aufstehen.png' },
+            { name: 'Haltegriff Osae-Komi', image: 'Bilder/07 Kampfrichterzeichen/budo_spiele_kr_zeichen_judo_haltegriff_osae_komi.png' },
+            { name: 'Sonomama Yoshi 1', image: 'Bilder/07 Kampfrichterzeichen/budo_spiele_kr_zeichen_judo_haltegriff_sonomama_yoshi_1.png' },
+            { name: 'Sonomama Yoshi 2', image: 'Bilder/07 Kampfrichterzeichen/budo_spiele_kr_zeichen_judo_haltegriff_sonomama_yoshi_2.png' },
+            { name: 'Haltegriff Toketa', image: 'Bilder/07 Kampfrichterzeichen/budo_spiele_kr_zeichen_judo_haltegriff_toketa.png' },
+            { name: 'Kämpfer auf Matte bitten', image: 'Bilder/07 Kampfrichterzeichen/budo_spiele_kr_zeichen_judo_kaempfer_auf_matte bitten.png' },
+            { name: 'Kampfunterbrechung Mate', image: 'Bilder/07 Kampfrichterzeichen/budo_spiele_kr_zeichen_judo_kampfunterbrechung_mate.png' },
+            { name: 'Kleider ordnen', image: 'Bilder/07 Kampfrichterzeichen/budo_spiele_kr_zeichen_judo_kleider_ordnen.png' },
+            { name: 'Siegererklärung', image: 'Bilder/07 Kampfrichterzeichen/budo_spiele_kr_zeichen_judo_siegererklaerung.png' },
+            { name: 'Standposition vor Beginn', image: 'Bilder/07 Kampfrichterzeichen/budo_spiele_kr_zeichen_judo_standposition_vor_beginn_Kampfes.png' },
+            { name: 'Strafe Raustreten', image: 'Bilder/07 Kampfrichterzeichen/budo_spiele_kr_zeichen_judo_Strafe für Raustreten.png' },
+            { name: 'Strafe Ärmel fassen', image: 'Bilder/07 Kampfrichterzeichen/budo_spiele_kr_zeichen_judo_strafe_ für in den Ärmel fassen.png' },
+            { name: 'Strafe Jacke abdecken', image: 'Bilder/07 Kampfrichterzeichen/budo_spiele_kr_zeichen_judo_strafe_fuer_abdecken_jacke.png' },
+            { name: 'Strafe Beinfassen', image: 'Bilder/07 Kampfrichterzeichen/budo_spiele_kr_zeichen_judo_strafe_fuer_beinfassen.png' },
+            { name: 'Strafe Blocken', image: 'Bilder/07 Kampfrichterzeichen/budo_spiele_kr_zeichen_judo_strafe_fuer_blocken.png' },
+            { name: 'Strafe Cross-Grip', image: 'Bilder/07 Kampfrichterzeichen/budo_spiele_kr_zeichen_judo_strafe_fuer_eins_fassen_cross_grip.png' },
+            { name: 'Strafe Gürtel fassen', image: 'Bilder/07 Kampfrichterzeichen/budo_spiele_kr_zeichen_judo_strafe_fuer_guertel_fassen.png' },
+            { name: 'Strafe Pistolgrip', image: 'Bilder/07 Kampfrichterzeichen/budo_spiele_kr_zeichen_judo_strafe_fuer_pistolgrip.png' },
+            { name: 'Strafe Raustreten', image: 'Bilder/07 Kampfrichterzeichen/budo_spiele_kr_zeichen_judo_strafe_fuer_raustreten.png' },
+            { name: 'Strafe Inaktivität', image: 'Bilder/07 Kampfrichterzeichen/budo_spiele_kr_zeichen_judo_strafe_inaktivitaet.png' },
+            { name: 'Strafe Scheinangriff', image: 'Bilder/07 Kampfrichterzeichen/budo_spiele_kr_zeichen_judo_strafe_scheinangriff.png' },
+            { name: 'Strafe vergeben', image: 'Bilder/07 Kampfrichterzeichen/budo_spiele_kr_zeichen_judo_strafe_vergeben.png' },
+            { name: 'Verbeugen', image: 'Bilder/07 Kampfrichterzeichen/budo_spiele_kr_zeichen_judo_verbeugen_betreten_verlassen.png' },
+            { name: 'Wertung annulieren', image: 'Bilder/07 Kampfrichterzeichen/budo_spiele_kr_zeichen_judo_wertung_annulieren.png' },
+            { name: 'Wertung Ippon', image: 'Bilder/07 Kampfrichterzeichen/budo_spiele_kr_zeichen_judo_wertung_ippon.png' },
+            { name: 'Wertung korrigieren', image: 'Bilder/07 Kampfrichterzeichen/budo_spiele_kr_zeichen_judo_wertung_korrigieren.png' },
+            { name: 'Wazaari Awasete Ippon', image: 'Bilder/07 Kampfrichterzeichen/budo_spiele_kr_zeichen_judo_wertung_wazaari_awasete_ippon.png' },
+            { name: 'Wertung Wazaari', image: 'Bilder/07 Kampfrichterzeichen/budo_spiele_kr_zeichen_judo_wertung_wazaari.png' },
+            { name: 'Wertung Yuko', image: 'Bilder/07 Kampfrichterzeichen/budo_spiele_kr_zeichen_judo_wertung_yuko.png' }
+        ];
+
+        const techniquesJudowerte = [
+            { name: 'Höflichkeit', image: 'Bilder/08 Judowerte/djb_budo_spiel_judowerte_hoeflichkeit.jpg' },
+            { name: 'Bescheidenheit', image: 'Bilder/08 Judowerte/djb_budo_spiele_judowerte_bescheidenheit.jpg' },
+            { name: 'Ehrlichkeit', image: 'Bilder/08 Judowerte/djb_budo_spiele_judowerte_ehrlichkeit.jpg' },
+            { name: 'Ernsthaftigkeit', image: 'Bilder/08 Judowerte/djb_budo_spiele_judowerte_ernsthaftigkeit.jpg' },
+            { name: 'Freundschaft', image: 'Bilder/08 Judowerte/djb_budo_spiele_judowerte_freundschaft.jpg' },
+            { name: 'Hilfsbereitschaft', image: 'Bilder/08 Judowerte/djb_budo_spiele_judowerte_hilfsbereitschaft.jpg' },
+            { name: 'Mut', image: 'Bilder/08 Judowerte/djb_budo_spiele_judowerte_mut.jpg' },
+            { name: 'Respekt', image: 'Bilder/08 Judowerte/djb_budo_spiele_judowerte_respekt.jpg' },
+            { name: 'Selbstbeherrschung', image: 'Bilder/08 Judowerte/djb_budo_spiele_judowerte_selbstbeherrschung.jpg' },
+            { name: 'Wertschätzung', image: 'Bilder/08 Judowerte/djb_budo_spiele_judowerte_wertschaetzung.jpg' }
         ];
 
         let grid = [];
@@ -1263,6 +1318,8 @@
             const erwBoden = document.getElementById('erwBoden').checked;
             const weissGelb = document.getElementById('weissGelb').checked;
             const taiso = document.getElementById('taiso').checked;
+            const kampfrichter = document.getElementById('kampfrichter').checked;
+            const judowerte = document.getElementById('judowerte').checked;
 
             activeTechniques = [];
 
@@ -1272,6 +1329,8 @@
             if (erwBoden) activeTechniques = activeTechniques.concat(techniquesErwBoden);
             if (weissGelb) activeTechniques = activeTechniques.concat(techniquesWeissGelb);
             if (taiso) activeTechniques = activeTechniques.concat(techniquesTaiso);
+            if (kampfrichter) activeTechniques = activeTechniques.concat(techniquesKampfrichter);
+            if (judowerte) activeTechniques = activeTechniques.concat(techniquesJudowerte);
 
             if (activeTechniques.length === 0) {
                 alert('Bitte wähle mindestens ein Programm aus!');
