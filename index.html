@@ -1409,14 +1409,14 @@
             const scale = 3; // 3x resolution for high quality PDF
             const canvas = document.createElement('canvas');
             canvas.width = 800 * scale;
-            canvas.height = 900 * scale;
+            canvas.height = 950 * scale;
             const ctx = canvas.getContext('2d');
 
             // Scale context for high resolution
             ctx.scale(scale, scale);
 
             ctx.fillStyle = 'white';
-            ctx.fillRect(0, 0, 800, 900);
+            ctx.fillRect(0, 0, 800, 950);
 
             // Load and draw logos
             const logoLeft = new Image();
@@ -1584,26 +1584,27 @@
             // A4 dimensions: 210mm x 297mm
             // Calculate dimensions to fit on A4 while maintaining aspect ratio
             const pdfWidth = 210;
-            const pdfHeight = (900 / 800) * pdfWidth;
+            const pdfHeight = (950 / 800) * pdfWidth;
 
             pdf.addImage(imgData, 'PNG', 0, 0, pdfWidth, pdfHeight, undefined, 'FAST');
 
             // Add clickable links to PDF
             // Convert pixel coordinates to PDF coordinates (mm)
-            const pixelToMm = pdfWidth / 800;
+            const pixelToMmX = pdfWidth / 800;
+            const pixelToMmY = pdfHeight / 950;
 
             // Link 1: www.budo-spiele.de (position: x=50, y=903, width~120, height~15)
-            const link1X = 50 * pixelToMm;
-            const link1Y = 903 * pixelToMm;
-            const link1Width = 120 * pixelToMm;
-            const link1Height = 15 * pixelToMm;
+            const link1X = 50 * pixelToMmX;
+            const link1Y = 903 * pixelToMmY;
+            const link1Width = 120 * pixelToMmX;
+            const link1Height = 15 * pixelToMmY;
             pdf.link(link1X, link1Y, link1Width, link1Height, {url: 'https://www.budo-spiele.de/'});
 
             // Link 2: www.judobund.de (position: x=220, y=903, width~100, height~15)
-            const link2X = 220 * pixelToMm;
-            const link2Y = 903 * pixelToMm;
-            const link2Width = 100 * pixelToMm;
-            const link2Height = 15 * pixelToMm;
+            const link2X = 220 * pixelToMmX;
+            const link2Y = 903 * pixelToMmY;
+            const link2Width = 100 * pixelToMmX;
+            const link2Height = 15 * pixelToMmY;
             pdf.link(link2X, link2Y, link2Width, link2Height, {url: 'https://www.judobund.de'});
 
             pdf.save('judo-bingo.pdf');
