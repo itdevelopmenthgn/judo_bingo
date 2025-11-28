@@ -345,6 +345,194 @@
             padding-left: 10px;
             line-height: 1.6;
         }
+
+        /* Mobile Optimierung */
+        @media (max-width: 768px) {
+            body {
+                padding: 10px;
+            }
+
+            .header-content {
+                gap: 15px;
+                flex-wrap: wrap;
+            }
+
+            .header-logo {
+                height: 50px;
+            }
+
+            .header h1 {
+                font-size: 1.8em;
+            }
+
+            .header p {
+                font-size: 1em;
+            }
+
+            .program-selection,
+            .controls,
+            .grid-wrapper,
+            .instructions {
+                padding: 20px;
+                margin-bottom: 20px;
+            }
+
+            .program-selection h2 {
+                font-size: 1.2em;
+            }
+
+            .checkbox-group {
+                gap: 10px;
+            }
+
+            .checkbox-item {
+                padding: 10px 15px;
+                font-size: 0.9em;
+            }
+
+            .checkbox-item label {
+                font-size: 0.9em;
+            }
+
+            .controls-inner {
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            .dice {
+                width: 60px;
+                height: 60px;
+                font-size: 1.8em;
+            }
+
+            button {
+                padding: 12px 25px;
+                font-size: 0.95em;
+                width: 100%;
+                max-width: 300px;
+            }
+
+            .dice-info {
+                font-size: 0.85em;
+                padding: 0 10px;
+            }
+
+            .bingo-alert {
+                font-size: 1.5em;
+                padding: 15px;
+            }
+
+            .grid-wrapper {
+                padding: 15px;
+            }
+
+            .grid-col-number,
+            .row-label {
+                font-size: 1em;
+            }
+
+            .grid-cell {
+                width: 120px;
+                height: 120px;
+                padding: 8px;
+            }
+
+            .grid-col-number {
+                width: 120px;
+            }
+
+            .row-label {
+                width: 40px;
+            }
+
+            .grid-row-number {
+                width: 40px;
+            }
+
+            .cell-image {
+                width: 75px;
+                height: 75px;
+                font-size: 2.5em;
+                margin-bottom: 6px;
+            }
+
+            .cell-name {
+                font-size: 0.65em;
+            }
+
+            .instructions h2 {
+                font-size: 1.2em;
+            }
+
+            .instructions li {
+                font-size: 0.9em;
+                margin-bottom: 8px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .header h1 {
+                font-size: 1.5em;
+            }
+
+            .header-logo {
+                height: 40px;
+            }
+
+            .program-selection h2,
+            .instructions h2 {
+                font-size: 1.1em;
+            }
+
+            .checkbox-item {
+                width: 100%;
+                justify-content: center;
+            }
+
+            .dice {
+                width: 50px;
+                height: 50px;
+                font-size: 1.5em;
+            }
+
+            .dice-container {
+                gap: 15px;
+            }
+
+            .grid-cell {
+                width: 100px;
+                height: 100px;
+                padding: 5px;
+            }
+
+            .grid-col-number {
+                width: 100px;
+            }
+
+            .row-label {
+                width: 30px;
+            }
+
+            .grid-row-number {
+                width: 30px;
+            }
+
+            .cell-image {
+                width: 60px;
+                height: 60px;
+                font-size: 2em;
+                margin-bottom: 4px;
+            }
+
+            .cell-name {
+                font-size: 0.6em;
+                line-height: 1.2;
+            }
+
+            .bingo-alert {
+                font-size: 1.3em;
+            }
+        }
     </style>
 </head>
 <body>
