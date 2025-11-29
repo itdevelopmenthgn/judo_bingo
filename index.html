@@ -1167,11 +1167,11 @@
             { name: 'O-goshi', image: 'Bilder/01 Grundprogramm Stand/7. Kyu/djb_budo_spiele_O-goshi.png' },
             { name: 'Uki-goshi', image: 'Bilder/01 Grundprogramm Stand/7. Kyu/djb_budo_spiele_Uki-goshi.png' },
             { name: 'Ippon-seoi-nage', image: 'Bilder/01 Grundprogramm Stand/6. Kyu/Ippon-seoi-nage.png' },
-            { name: 'ko-soto-gake', image: 'Bilder/01 Grundprogramm Stand/6. Kyu/ko-soto-gake.png' },
+            { name: 'Ko-soto-gake', image: 'Bilder/01 Grundprogramm Stand/6. Kyu/ko-soto-gake.png' },
             { name: 'O-soto-gari', image: 'Bilder/01 Grundprogramm Stand/6. Kyu/O-Soto-Gari.png' },
             { name: 'Tai-otoshi', image: 'Bilder/01 Grundprogramm Stand/6. Kyu/Tai-Otoshi.png' },
             { name: 'Ko-uchi-gari', image: 'Bilder/01 Grundprogramm Stand/5. Kyu/djb_budo_spiele_Ko-uchi-gari.png' },
-            { name: 'sasae-tsuri-komi-ashi', image: 'Bilder/01 Grundprogramm Stand/5. Kyu/djb_budo_spiele_sasae-tsuri-komi-ashi.png' },
+            { name: 'Sasae-tsuri-komi-ashi', image: 'Bilder/01 Grundprogramm Stand/5. Kyu/djb_budo_spiele_sasae-tsuri-komi-ashi.png' },
             { name: 'Sode-tsuri-komi-goshi', image: 'Bilder/01 Grundprogramm Stand/5. Kyu/djb_budo_spiele_Sode-Tsuri-Komi-Goshi.png' },
             { name: 'Tsuri-komi-goshi', image: 'Bilder/01 Grundprogramm Stand/5. Kyu/djb_budo_spiele_Tsuri-Komi-Goshi.png' },
             { name: 'Harai-goshi', image: 'Bilder/01 Grundprogramm Stand/4. Kyu/djb_budo_spiele_Harai-Goshi.png' },
@@ -1273,8 +1273,7 @@
             { name: 'Kleider ordnen', image: 'Bilder/07 Kampfrichterzeichen/budo_spiele_kr_zeichen_judo_kleider_ordnen.png' },
             { name: 'Siegererklärung', image: 'Bilder/07 Kampfrichterzeichen/budo_spiele_kr_zeichen_judo_siegererklaerung.png' },
             { name: 'Standposition vor Beginn', image: 'Bilder/07 Kampfrichterzeichen/budo_spiele_kr_zeichen_judo_standposition_vor_beginn_Kampfes.png' },
-            { name: 'Strafe Raustreten', image: 'Bilder/07 Kampfrichterzeichen/budo_spiele_kr_zeichen_judo_Strafe für Raustreten.png' },
-            { name: 'Strafe Ärmel fassen', image: 'Bilder/07 Kampfrichterzeichen/budo_spiele_kr_zeichen_judo_strafe_ für in den Ärmel fassen.png' },
+            { name: 'Strafe Ärmel fassen', image: 'Bilder/07 Kampfrichterzeichen/budo_spiele_kr_zeichen_judo_strafe_ fuer_in_den_Aermel_fassen.png' },
             { name: 'Strafe Jacke abdecken', image: 'Bilder/07 Kampfrichterzeichen/budo_spiele_kr_zeichen_judo_strafe_fuer_abdecken_jacke.png' },
             { name: 'Strafe Beinfassen', image: 'Bilder/07 Kampfrichterzeichen/budo_spiele_kr_zeichen_judo_strafe_fuer_beinfassen.png' },
             { name: 'Strafe Blocken', image: 'Bilder/07 Kampfrichterzeichen/budo_spiele_kr_zeichen_judo_strafe_fuer_blocken.png' },
@@ -1468,14 +1467,14 @@
             const scale = 3; // 3x resolution for high quality PDF
             const canvas = document.createElement('canvas');
             canvas.width = 800 * scale;
-            canvas.height = 950 * scale;
+            canvas.height = 1000 * scale;
             const ctx = canvas.getContext('2d');
 
             // Scale context for high resolution
             ctx.scale(scale, scale);
 
             ctx.fillStyle = 'white';
-            ctx.fillRect(0, 0, 800, 950);
+            ctx.fillRect(0, 0, 800, 1000);
 
             // Load and draw logos
             const logoLeft = new Image();
@@ -1526,9 +1525,9 @@
 
             let title = 'Graduierungsbingo';
             if (taiso && !kampfrichter && !otherCategories) {
-                title = 'Taiso Bingo Graduierungsbingo';
+                title = 'Taiso Bingo';
             } else if (kampfrichter && !taiso && !otherCategories) {
-                title = 'Kampfrichterzeichen Bingo';
+                title = 'Kampfrichter Bingo';
             }
 
             ctx.fillStyle = '#1e40af';
@@ -1634,19 +1633,19 @@
             ctx.font = '14px Arial';
             ctx.fillStyle = '#374151';
             ctx.textAlign = 'left';
-            ctx.fillText('• Würfle mit 2 Würfeln: Würfel 1 = Spalte/Zeile, Würfel 2 = Zeile/Spalte', 50, 820);
-            ctx.fillText('• Ziffer 6 = Joker (freie Wahl)', 50, 840);
-            ctx.fillText('• Ziel: Erreiche eine vollständige Reihe (horizontal, vertikal oder diagonal)', 50, 860);
+            ctx.fillText('• Würfle mit 2 Würfeln: Würfel 1 = Spalte/Zeile, Würfel 2 = Zeile/Spalte', 50, 858);
+            ctx.fillText('• Ziffer 6 = Joker (freie Wahl)', 50, 878);
+            ctx.fillText('• Ziel: Erreiche eine vollständige Reihe (horizontal, vertikal oder diagonal)', 50, 898);
 
             // Add website links
             ctx.font = 'bold 13px Arial';
             ctx.fillStyle = '#1e3a8a';
-            ctx.fillText('Weitere Informationen:', 50, 885);
+            ctx.fillText('Weitere Informationen:', 50, 923);
 
             ctx.font = '12px Arial';
             ctx.fillStyle = '#2563eb';
-            ctx.fillText('www.budo-spiele.de', 50, 903);
-            ctx.fillText('www.judobund.de', 220, 903);
+            ctx.fillText('www.budo-spiele.de', 50, 941);
+            ctx.fillText('www.judobund.de', 220, 941);
 
             // Generate PDF from canvas
             const { jsPDF } = window.jspdf;
