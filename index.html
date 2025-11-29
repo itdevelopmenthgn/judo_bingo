@@ -1520,14 +1520,16 @@
             const weissGelb = document.getElementById('weissGelb').checked;
             const judowerte = document.getElementById('judowerte').checked;
 
-            // Count how many categories are selected (excluding taiso and kampfrichter)
-            const otherCategories = grundStand || grundBoden || erwStand || erwBoden || weissGelb || judowerte;
+            // Count how many categories are selected (excluding taiso, kampfrichter and judowerte)
+            const otherCategories = grundStand || grundBoden || erwStand || erwBoden || weissGelb;
 
             let title = 'Graduierungsbingo';
-            if (taiso && !kampfrichter && !otherCategories) {
+            if (taiso && !kampfrichter && !judowerte && !otherCategories) {
                 title = 'Taiso Bingo';
-            } else if (kampfrichter && !taiso && !otherCategories) {
+            } else if (kampfrichter && !taiso && !judowerte && !otherCategories) {
                 title = 'Kampfrichter Bingo';
+            } else if (judowerte && !taiso && !kampfrichter && !otherCategories) {
+                title = 'Judowerte Bingo';
             }
 
             ctx.fillStyle = '#1e40af';
